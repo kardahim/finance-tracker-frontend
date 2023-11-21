@@ -7,9 +7,9 @@
 footer {
   width: 100%;
   background: $background-color;
-  font-family: Hack, monospace;
   box-shadow: $main-box-shadow;
   text-align: center;
   padding: 25px;
+  color: $sub-text-color;
 }
 </style>

@@ -17,7 +17,6 @@
   width: 100%;
   background: $background-color;
   // position: fixed;
-  font-family: Hack, monospace;
   box-shadow: $main-box-shadow;
 
   &__items {
