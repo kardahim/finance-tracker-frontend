@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, Field } from 'vee-validate'
-import { loginValidationSchema } from '../assets/validation/LoginValidationSchema'
+import { loginValidationSchema } from '../assets/validation/loginValidationSchema'
 
 function onSubmit(values: any) {
   // use authStore login
