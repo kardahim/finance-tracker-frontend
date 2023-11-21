@@ -119,3 +119,4 @@ function onSubmit(values: any) {
   }
 }
 </style>
+../assets/validation/loginValidationSchema
