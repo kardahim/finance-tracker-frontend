@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import NavigationBar from './components/NavigationBar.vue'
+import FooterBar from './components/FooterBar.vue'
 </script>
 
 <template>
   <navigation-bar />
-  <router-view></router-view>
+  <div id="content">
+    <router-view></router-view>
+  </div>
+  <footer-bar />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+#content {
+  margin: 60px 0;
+}
+</style>

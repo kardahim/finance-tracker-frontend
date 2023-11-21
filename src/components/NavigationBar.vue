@@ -18,8 +18,7 @@
   background: $background-color;
   // position: fixed;
   font-family: Hack, monospace;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-bottom: 60px;
+  box-shadow: $main-box-shadow;
 
   &__items {
     list-style: none;
@@ -30,7 +29,7 @@
 
       a {
         text-decoration: none;
-        color: #8f8f8f;
+        color: $sub-text-color;
         font-size: 24px;
         font-weight: 400;
         transition: all 0.5s ease-in-out;
