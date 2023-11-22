@@ -1,12 +1,31 @@
 <!-- Original style by G. Rohit -->
 <!-- https://codepen.io/grohit/pen/jObGzdG -->
+<script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
+</script>
 
 <template>
   <nav class="navigation">
     <ul class="navigation__items">
       <li><router-link to="/" data-item="Home">Home</router-link></li>
-      <li><router-link to="/login" data-item="Login">Login</router-link></li>
-      <li><router-link to="/register" data-item="Register">Register</router-link></li>
+      <li>
+        <router-link to="/login" data-item="Login" v-if="!authStore.user.isLogged"
+          >Login</router-link
+        >
+      </li>
+      <li>
+        <router-link to="/register" data-item="Register" v-if="!authStore.user.isLogged"
+          >Register</router-link
+        >
+      </li>
+
+      <li>
+        <span data-item="Logout" @click="authStore.logout" v-if="authStore.user.isLogged">
+          Logout
+        </span>
+      </li>
     </ul>
   </nav>
 </template>
@@ -26,7 +45,9 @@
     li {
       margin: 25px;
 
-      a {
+      a,
+      span {
+        cursor: pointer;
         text-decoration: none;
         color: $sub-text-color;
         font-size: 24px;

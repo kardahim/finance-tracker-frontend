@@ -5,7 +5,7 @@ import { type User } from '@/interfaces/user'
 import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
-  const initialUser = JSON.parse(localStorage.getItem('user') || '')
+  const initialUser = JSON.parse(localStorage.getItem('user') || 'null')
 
   const user = ref<User>({
     id: initialUser ? initialUser.id : null,
@@ -40,5 +40,20 @@ export const useAuthStore = defineStore('auth', () => {
       })
   }
 
-  return { login, user }
+  function logout() {
+    localStorage.removeItem('user')
+
+    user.value.id = null
+    user.value.firstName = null
+    user.value.lastName = null
+    user.value.email = null
+    user.value.token = null
+    user.value.refreshToken = null
+    user.value.role = null
+    user.value.isLogged = false
+
+    router.push('/login')
+  }
+
+  return { login, logout, user }
 })
