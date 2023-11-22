@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Form, Field } from 'vee-validate'
 import { loginValidationSchema } from '../assets/validation/loginValidationSchema'
+import { useAuthStore } from '@/stores/auth'
 
 function onSubmit(values: any) {
-  // use authStore login
+  const authStore = useAuthStore()
+  authStore.login(values)
 }
 </script>
 
