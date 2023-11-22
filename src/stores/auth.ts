@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import myAxios from '@/helpers/axios'
 import { type User } from '@/interfaces/user'
 import router from '@/router'
+import type { Register } from '@/interfaces/register'
 
 export const useAuthStore = defineStore('auth', () => {
   const initialUser = JSON.parse(localStorage.getItem('user') || 'null')
@@ -55,5 +56,16 @@ export const useAuthStore = defineStore('auth', () => {
     router.push('/login')
   }
 
-  return { login, logout, user }
+  function register(data: Register) {
+    myAxios
+      .post('/auth/signup', data)
+      .then(() => {
+        router.push('/login')
+      })
+      .catch((error) => {
+        console.error('Register error:', error.message)
+      })
+  }
+
+  return { login, logout, register, user }
 })

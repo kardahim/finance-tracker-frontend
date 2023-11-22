@@ -10,21 +10,15 @@ const authStore = useAuthStore()
   <nav class="navigation">
     <ul class="navigation__items">
       <li><router-link to="/" data-item="Home">Home</router-link></li>
-      <li>
-        <router-link to="/login" data-item="Login" v-if="!authStore.user.isLogged"
-          >Login</router-link
-        >
+      <li v-if="!authStore.user.isLogged">
+        <router-link to="/login" data-item="Login">Login</router-link>
       </li>
-      <li>
-        <router-link to="/register" data-item="Register" v-if="!authStore.user.isLogged"
-          >Register</router-link
-        >
+      <li v-if="!authStore.user.isLogged">
+        <router-link to="/register" data-item="Register">Register</router-link>
       </li>
 
-      <li>
-        <span data-item="Logout" @click="authStore.logout" v-if="authStore.user.isLogged">
-          Logout
-        </span>
+      <li v-if="authStore.user.isLogged">
+        <span data-item="Logout" @click="authStore.logout"> Logout </span>
       </li>
     </ul>
   </nav>

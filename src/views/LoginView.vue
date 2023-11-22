@@ -51,7 +51,7 @@ function onSubmit(values: any) {
 .login {
   box-shadow: $main-box-shadow;
   max-width: 500px;
-  height: 500px;
+  height: auto;
   padding: 60px;
   border-radius: 10px;
   margin: 0 30px;
@@ -121,4 +121,3 @@ function onSubmit(values: any) {
   }
 }
 </style>
-../assets/validation/loginValidationSchema
