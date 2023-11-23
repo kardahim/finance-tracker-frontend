@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
 import { useIncomeStore } from '@/stores/income'
 import { useExpenseStore } from '@/stores/expense'
 import dayjs from 'dayjs'
-
-const authStore = useAuthStore()
+import router from '@/router'
 
 const incomeStore = useIncomeStore()
 incomeStore.getIncomeList()
@@ -12,8 +10,7 @@ incomeStore.getIncomeList()
 const expenseStore = useExpenseStore()
 expenseStore.getExpenseList()
 
-// TODO add delete
-// TODO add create new one
+// TODO add edit
 // TODO add statistics
 // TODO add rwd
 </script>
@@ -44,7 +41,9 @@ expenseStore.getExpenseList()
             </td>
           </tr>
           <tr class="home__card__table__body__btn-row">
-            <td colspan="100%"><button>Add new income</button></td>
+            <td colspan="100%">
+              <button @click="router.push('/income/new')">Add new income</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -73,7 +72,9 @@ expenseStore.getExpenseList()
             </td>
           </tr>
           <tr class="home__card__table__body__btn-row">
-            <td colspan="100%"><button>Add new expense</button></td>
+            <td colspan="100%">
+              <button @click="router.push('/expense/new')">Add new expense</button>
+            </td>
           </tr>
         </tbody>
       </table>

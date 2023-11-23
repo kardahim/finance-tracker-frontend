@@ -3,6 +3,8 @@ import myAxios from '@/helpers/axios'
 import { useAuthStore } from './auth'
 import { ref } from 'vue'
 import { type Income } from '@/interfaces/income'
+import { type IncomeExpense } from '@/interfaces/incomeExpense'
+import router from '@/router'
 
 export const useIncomeStore = defineStore('income', () => {
   const authStore = useAuthStore()
@@ -19,6 +21,13 @@ export const useIncomeStore = defineStore('income', () => {
         name: null
       },
       userId: null
+    }
+  ])
+
+  const incomeSources = ref<[{ id: number | null; name: string | null }]>([
+    {
+      id: null,
+      name: null
     }
   ])
 
@@ -60,5 +69,33 @@ export const useIncomeStore = defineStore('income', () => {
       })
   }
 
-  return { income, getIncomeList, deleteIncome }
+  function getIncomeSources() {
+    myAxios
+      .get(`/income-source`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((response) => {
+        incomeSources.value = response.data
+      })
+      .catch((error) => {
+        console.error('Income sources error:', error)
+      })
+  }
+
+  function createNewIncome(data: IncomeExpense) {
+    data.userId = authStore.user.id
+
+    myAxios
+      .post(`/income`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(() => {
+        router.push('/')
+      })
+      .catch((error) => {
+        console.error('Add income error:', error)
+      })
+  }
+
+  return { income, incomeSources, getIncomeList, deleteIncome, getIncomeSources, createNewIncome }
 })

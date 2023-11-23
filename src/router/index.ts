@@ -19,17 +19,28 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/income/new',
+      name: 'newIncome',
+      component: () => import('../views/NewIncome.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/expense/new',
+      name: 'newExpense',
+      component: () => import('../views/NewExpense.vue'),
+      meta: { requiresAuth: true }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-
-  if (!authStore.user.isLogged && to.meta.requiresAuth) {
-    next('/login')
-  } else if (authStore.user.isLogged && !to.meta.requiresAuth) {
+  if (authStore.user.isLogged && !to.meta.requiresAuth) {
     next('/')
+  } else if (!authStore.user.isLogged && to.meta.requiresAuth) {
+    next('/login')
   } else {
     next()
   }

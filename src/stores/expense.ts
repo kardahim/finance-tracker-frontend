@@ -3,6 +3,8 @@ import myAxios from '@/helpers/axios'
 import { useAuthStore } from './auth'
 import { ref } from 'vue'
 import { type Expense } from '@/interfaces/expense'
+import { type IncomeExpense } from '@/interfaces/incomeExpense'
+import router from '@/router'
 
 export const useExpenseStore = defineStore('expense', () => {
   const authStore = useAuthStore()
@@ -19,6 +21,13 @@ export const useExpenseStore = defineStore('expense', () => {
         name: null
       },
       userId: null
+    }
+  ])
+
+  const expenseSources = ref<[{ id: number | null; name: string | null }]>([
+    {
+      id: null,
+      name: null
     }
   ])
 
@@ -60,5 +69,40 @@ export const useExpenseStore = defineStore('expense', () => {
       })
   }
 
-  return { expenses, getExpenseList, deleteExpense }
+  function getExpenseSources() {
+    myAxios
+      .get(`/expense-source`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((response) => {
+        expenseSources.value = response.data
+      })
+      .catch((error) => {
+        console.error('Expense sources error:', error)
+      })
+  }
+
+  function createNewExpense(data: IncomeExpense) {
+    data.userId = authStore.user.id
+
+    myAxios
+      .post(`/expense`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(() => {
+        router.push('/')
+      })
+      .catch((error) => {
+        console.error('Add expense error:', error)
+      })
+  }
+
+  return {
+    expenses,
+    expenseSources,
+    getExpenseList,
+    deleteExpense,
+    getExpenseSources,
+    createNewExpense
+  }
 })
