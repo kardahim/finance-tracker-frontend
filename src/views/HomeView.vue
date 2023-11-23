@@ -13,7 +13,6 @@ const expenseStore = useExpenseStore()
 expenseStore.getExpenseList()
 
 // TODO add delete
-// TODO add edit
 // TODO add create new one
 // TODO add statistics
 // TODO add rwd
