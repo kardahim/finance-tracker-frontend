@@ -47,5 +47,18 @@ export const useIncomeStore = defineStore('income', () => {
       })
   }
 
-  return { income, getIncomeList }
+  function deleteIncome(id: number) {
+    myAxios
+      .delete(`/income/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(() => {
+        getIncomeList()
+      })
+      .catch((error) => {
+        console.error('Income delete error:', error)
+      })
+  }
+
+  return { income, getIncomeList, deleteIncome }
 })

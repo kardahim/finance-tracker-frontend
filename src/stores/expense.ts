@@ -47,5 +47,18 @@ export const useExpenseStore = defineStore('expense', () => {
       })
   }
 
-  return { expenses, getExpenseList }
+  function deleteExpense(id: number) {
+    myAxios
+      .delete(`/expense/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(() => {
+        getExpenseList()
+      })
+      .catch((error) => {
+        console.error('Income delete error:', error)
+      })
+  }
+
+  return { expenses, getExpenseList, deleteExpense }
 })

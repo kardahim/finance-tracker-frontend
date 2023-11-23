@@ -12,7 +12,9 @@ incomeStore.getIncomeList()
 const expenseStore = useExpenseStore()
 expenseStore.getExpenseList()
 
-// TODO add delete, create, edit
+// TODO add delete
+// TODO add edit
+// TODO add create new one
 // TODO add statistics
 // TODO add rwd
 </script>
@@ -27,6 +29,7 @@ expenseStore.getExpenseList()
           <td>Amount</td>
           <td>Date</td>
           <td>Income source</td>
+          <td>Action</td>
         </thead>
         <tbody class="home__card__table__body">
           <tr v-for="income in incomeStore.income" :key="income.id!">
@@ -34,6 +37,12 @@ expenseStore.getExpenseList()
             <td>{{ income.amount }}</td>
             <td>{{ dayjs(income.date).format('DD/MM/YYYY') }}</td>
             <td>{{ income.incomeSource.name }}</td>
+            <td>
+              <div class="home__card__table__body__btn-action">
+                <button @click="incomeStore.deleteIncome(income.id!)">Delete</button>
+                <button>Edit</button>
+              </div>
+            </td>
           </tr>
           <tr class="home__card__table__body__btn-row">
             <td colspan="100%"><button>Add new income</button></td>
@@ -42,13 +51,14 @@ expenseStore.getExpenseList()
       </table>
     </div>
     <div class="home__card">
-      <h1 class="home__card__title">Income</h1>
+      <h1 class="home__card__title">Expenses</h1>
       <table class="home__card__table">
         <thead class="home__card__table__head">
           <td>Name</td>
           <td>Amount</td>
           <td>Date</td>
           <td>Expense source</td>
+          <td>Action</td>
         </thead>
         <tbody class="home__card__table__body">
           <tr v-for="expense in expenseStore.expenses" :key="expense.id!">
@@ -56,6 +66,12 @@ expenseStore.getExpenseList()
             <td>{{ expense.amount }}</td>
             <td>{{ dayjs(expense.date).format('DD/MM/YYYY') }}</td>
             <td>{{ expense.expenseSource.name }}</td>
+            <td>
+              <div class="home__card__table__body__btn-action">
+                <button @click="incomeStore.deleteIncome(expense.id!)">Delete</button>
+                <button>Edit</button>
+              </div>
+            </td>
           </tr>
           <tr class="home__card__table__body__btn-row">
             <td colspan="100%"><button>Add new expense</button></td>
@@ -72,7 +88,6 @@ expenseStore.getExpenseList()
 .home {
   display: grid;
   grid-template-columns: auto auto;
-  gap: 20px;
 
   &__card {
     box-shadow: $main-box-shadow;
@@ -91,6 +106,16 @@ expenseStore.getExpenseList()
       td {
         border: 1px solid $sub-text-color;
         padding: 20px;
+
+        button {
+          width: 100%;
+          background-color: $accent-color;
+          font-size: 1.2rem;
+          cursor: pointer;
+          outline: none;
+          border: none;
+          font-weight: 800;
+        }
       }
       &__head {
         font-weight: 800;
@@ -101,6 +126,13 @@ expenseStore.getExpenseList()
         }
       }
       &__body {
+        &__btn-action {
+          display: flex;
+          gap: 10px;
+          height: 50px;
+          width: 200px;
+        }
+
         tr:hover {
           font-weight: 800;
         }
