@@ -1,3 +1,177 @@
+<script setup lang="ts">
+import router from '@/router'
+import { Form, Field } from 'vee-validate'
+import { incomeExpenseValidationSchema } from '../assets/validation/incomeExpenseValidationSchema'
+import { useAuthStore } from '@/stores/auth'
+import { useExpenseStore } from '@/stores/expense'
+
+const expenseStore = useExpenseStore()
+const authStore = useAuthStore()
+const expenseId = +router.currentRoute.value.params.id
+await expenseStore.getExpenseById(expenseId)
+expenseStore.getExpenseSources()
+
+// if path incorrect redirect to home
+if (isNaN(expenseId)) {
+  router.push('/')
+}
+
+// if id doesnt belong to owner rdirect to home
+if (expenseStore.singleExpense.userId !== authStore.user.id) {
+  router.push('/')
+}
+
+function onSubmit(values: any) {
+  expenseStore.editIncome(expenseId, values)
+}
+</script>
+
 <template>
-  <div>EditExpense vue {{ $route.params.id }}</div>
+  <Form
+    class="expense"
+    @submit="onSubmit"
+    :validation-schema="incomeExpenseValidationSchema"
+    v-slot="{ errors, isSubmitting }"
+  >
+    <h1 class="expense__title">Edit Expense</h1>
+    <div class="expense__item">
+      <label for="name" class="expense__item__label">Name</label>
+      <Field
+        id="name"
+        name="name"
+        type="text"
+        class="expense__item__input"
+        :value="expenseStore.singleExpense.name"
+        :class="{ 'is-invalid': errors.name }"
+      />
+      <div class="expense__item__error">{{ errors.name }}</div>
+    </div>
+    <div class="expense__item">
+      <label for="amount" class="expense__item__label">Amount</label>
+      <Field
+        id="amount"
+        min="1"
+        name="amount"
+        type="number"
+        class="expense__item__input"
+        :value="expenseStore.singleExpense.amount"
+        :class="{ 'is-invalid': errors.amount }"
+      />
+      <div class="expense__item__error">{{ errors.amount }}</div>
+    </div>
+    <div class="expense__item">
+      <label for="date" class="expense__item__label">Date</label>
+      <Field
+        id="date"
+        min="1"
+        name="date"
+        type="date"
+        :value="new Date(expenseStore.singleExpense.date!).toISOString().substr(0, 10)"
+        class="expense__item__input"
+        :class="{ 'is-invalid': errors.date }"
+      />
+      <div class="expense__item__error">{{ errors.date }}</div>
+    </div>
+    <div class="expense__item">
+      <label for="date" class="expense__item__label">Expense source</label>
+      <Field
+        as="select"
+        id="sourceId"
+        name="sourceId"
+        class="expense__item__input"
+        :value="expenseStore.singleExpense.expenseSource.id"
+        :class="{ 'is-invalid': errors.sourceId }"
+      >
+        <!-- should be selected... -->
+        <option v-for="source in expenseStore.expenseSources" :key="source.id!" :value="source.id">
+          {{ source.name }}
+        </option>
+      </Field>
+      <div class="expense__item__error">{{ errors.sourceId }}</div>
+    </div>
+    <div class="expense__item expense__item--flex">
+      <button class="expense__item__button" :disabled="isSubmitting">Edit</button>
+      <button class="expense__item__button" @click="router.push('/')">Cancel</button>
+    </div>
+  </Form>
 </template>
+
+<style scoped lang="scss">
+@import '../assets/styles/variables.scss';
+.expense {
+  box-shadow: $main-box-shadow;
+  max-width: 500px;
+  height: auto;
+  padding: 60px;
+  border-radius: 10px;
+  margin: 0 30px;
+
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+  }
+
+  &__item {
+    margin-bottom: 20px;
+
+    &__label {
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    &__input {
+      width: 100%;
+      height: 40px;
+      font-size: 2rem;
+      outline: none;
+
+      &:focus {
+        border: black solid 2px;
+      }
+    }
+
+    &__button {
+      margin-top: 10px;
+      height: 40px;
+      width: 50%;
+      text-transform: uppercase;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      font-size: 1.1rem;
+      background-color: $accent-color;
+      color: black;
+      font-weight: 800;
+
+      &:hover {
+        background-color: $accent-color-hover;
+      }
+    }
+
+    &__error {
+      height: 10px;
+      color: $accent-color;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  }
+
+  &__item--flex {
+    display: flex;
+    gap: 30px;
+    align-items: baseline;
+
+    a {
+      transition: all 0.5s ease-in-out;
+      color: $text-color;
+
+      &:hover {
+        color: $sub-text-color;
+      }
+    }
+  }
+}
+</style>

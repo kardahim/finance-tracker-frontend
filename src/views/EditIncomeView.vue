@@ -33,7 +33,7 @@ function onSubmit(values: any) {
     :validation-schema="incomeExpenseValidationSchema"
     v-slot="{ errors, isSubmitting }"
   >
-    <h1 class="income__title">New Income</h1>
+    <h1 class="income__title">Edit Income</h1>
     <div class="income__item">
       <label for="name" class="income__item__label">Name</label>
       <Field
