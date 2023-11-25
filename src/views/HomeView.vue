@@ -87,13 +87,13 @@ await expenseStore.getExpenseList()
 .home {
   display: grid;
   grid-template-columns: auto auto;
+  gap: 30px;
 
   &__card {
     box-shadow: $main-box-shadow;
     height: auto;
     padding: 60px;
     border-radius: 10px;
-    margin: 0 30px;
 
     &__title {
       text-transform: uppercase;
@@ -102,6 +102,8 @@ await expenseStore.getExpenseList()
     }
 
     &__table {
+      width: 100%;
+
       td {
         border: 1px solid $sub-text-color;
         padding: 20px;
