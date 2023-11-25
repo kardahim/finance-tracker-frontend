@@ -23,13 +23,25 @@ const router = createRouter({
     {
       path: '/income/new',
       name: 'newIncome',
-      component: () => import('../views/NewIncome.vue'),
+      component: () => import('../views/NewIncomeView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/expense/new',
       name: 'newExpense',
-      component: () => import('../views/NewExpense.vue'),
+      component: () => import('../views/NewExpenseView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/expense/edit/:id',
+      name: 'editExpense',
+      component: () => import('../views/EditExpenseView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/income/edit/:id',
+      name: 'editIncome',
+      component: () => import('../views/EditIncomeView.vue'),
       meta: { requiresAuth: true }
     }
   ]

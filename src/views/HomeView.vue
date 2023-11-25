@@ -10,7 +10,6 @@ incomeStore.getIncomeList()
 const expenseStore = useExpenseStore()
 expenseStore.getExpenseList()
 
-// TODO add edit
 // TODO add statistics
 // TODO add rwd
 </script>
@@ -36,7 +35,7 @@ expenseStore.getExpenseList()
             <td>
               <div class="home__card__table__body__btn-action">
                 <button @click="incomeStore.deleteIncome(income.id!)">Delete</button>
-                <button>Edit</button>
+                <button @click="router.push(`/income/edit/${income.id!}`)">Edit</button>
               </div>
             </td>
           </tr>
@@ -67,7 +66,7 @@ expenseStore.getExpenseList()
             <td>
               <div class="home__card__table__body__btn-action">
                 <button @click="incomeStore.deleteIncome(expense.id!)">Delete</button>
-                <button>Edit</button>
+                <button @click="router.push(`/expense/edit/${expense.id!}`)">Edit</button>
               </div>
             </td>
           </tr>

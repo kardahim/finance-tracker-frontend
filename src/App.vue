@@ -6,7 +6,12 @@ import FooterBar from './components/FooterBar.vue'
 <template>
   <navigation-bar />
   <div id="content">
-    <router-view></router-view>
+    <Suspense>
+      <template #default>
+        <router-view></router-view>
+      </template>
+      <template #fallback>loading...</template>
+    </Suspense>
   </div>
   <footer-bar />
 </template>

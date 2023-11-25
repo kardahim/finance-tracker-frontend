@@ -24,6 +24,18 @@ export const useIncomeStore = defineStore('income', () => {
     }
   ])
 
+  const singleIncome = ref<Income>({
+    id: null,
+    name: null,
+    amount: null,
+    date: null,
+    incomeSource: {
+      id: null,
+      name: null
+    },
+    userId: null
+  })
+
   const incomeSources = ref<[{ id: number | null; name: string | null }]>([
     {
       id: null,
@@ -97,5 +109,49 @@ export const useIncomeStore = defineStore('income', () => {
       })
   }
 
-  return { income, incomeSources, getIncomeList, deleteIncome, getIncomeSources, createNewIncome }
+  async function getIncomeById(id: number) {
+    await myAxios
+      .get(`/income/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((response) => {
+        singleIncome.value.id = response.data.id
+        singleIncome.value.name = response.data.name
+        singleIncome.value.amount = response.data.amount
+        singleIncome.value.date = response.data.date
+        singleIncome.value.incomeSource.id = response.data.incomeSource.id
+        singleIncome.value.incomeSource.name = response.data.incomeSource.name
+        singleIncome.value.userId = response.data.user.id
+      })
+      .catch((error) => {
+        console.error('Income get by id error:', error)
+      })
+  }
+
+  function editIncome(id: number, data: IncomeExpense) {
+    data.userId = authStore.user.id
+
+    myAxios
+      .put(`/income/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(() => {
+        router.push('/')
+      })
+      .catch((error) => {
+        console.error('Edit income error:', error)
+      })
+  }
+
+  return {
+    income,
+    singleIncome,
+    incomeSources,
+    getIncomeList,
+    editIncome,
+    deleteIncome,
+    getIncomeSources,
+    createNewIncome,
+    getIncomeById
+  }
 })
