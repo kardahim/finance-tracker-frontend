@@ -43,8 +43,8 @@ export const useIncomeStore = defineStore('income', () => {
     }
   ])
 
-  function getIncomeList() {
-    myAxios
+  async function getIncomeList() {
+    await myAxios
       .get(`/income/user/${authStore.user.id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -81,8 +81,8 @@ export const useIncomeStore = defineStore('income', () => {
       })
   }
 
-  function getIncomeSources() {
-    myAxios
+  async function getIncomeSources() {
+    await myAxios
       .get(`/income-source`, {
         headers: { Authorization: `Bearer ${token}` }
       })

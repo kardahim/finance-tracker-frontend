@@ -5,10 +5,10 @@ import dayjs from 'dayjs'
 import router from '@/router'
 
 const incomeStore = useIncomeStore()
-incomeStore.getIncomeList()
+await incomeStore.getIncomeList()
 
 const expenseStore = useExpenseStore()
-expenseStore.getExpenseList()
+await expenseStore.getExpenseList()
 
 // TODO add statistics
 // TODO add rwd

@@ -43,8 +43,8 @@ export const useExpenseStore = defineStore('expense', () => {
     }
   ])
 
-  function getExpenseList() {
-    myAxios
+  async function getExpenseList() {
+    await myAxios
       .get(`/expense/user/${authStore.user.id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -81,8 +81,8 @@ export const useExpenseStore = defineStore('expense', () => {
       })
   }
 
-  function getExpenseSources() {
-    myAxios
+  async function getExpenseSources() {
+    await myAxios
       .get(`/expense-source`, {
         headers: { Authorization: `Bearer ${token}` }
       })

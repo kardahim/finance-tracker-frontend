@@ -5,7 +5,7 @@ import { useExpenseStore } from '@/stores/expense'
 import router from '@/router'
 
 const expenseStore = useExpenseStore()
-expenseStore.getExpenseSources()
+await expenseStore.getExpenseSources()
 
 function onSubmit(values: any) {
   expenseStore.createNewExpense(values)

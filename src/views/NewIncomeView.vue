@@ -5,7 +5,7 @@ import { useIncomeStore } from '@/stores/income'
 import router from '@/router'
 
 const incomeStore = useIncomeStore()
-incomeStore.getIncomeSources()
+await incomeStore.getIncomeSources()
 
 function onSubmit(values: any) {
   incomeStore.createNewIncome(values)
@@ -66,6 +66,7 @@ function onSubmit(values: any) {
         :class="{ 'is-invalid': errors.sourceId }"
       >
         <!-- should be selected... -->
+        <!-- but :selected=soemthing not work -->
         <option v-for="source in incomeStore.incomeSources" :key="source.id!" :value="source.id">
           {{ source.name }}
         </option>
