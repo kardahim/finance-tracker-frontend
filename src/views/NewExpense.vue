@@ -2,6 +2,7 @@
 import { Form, Field } from 'vee-validate'
 import { incomeExpenseValidationSchema } from '../assets/validation/incomeExpenseValidationSchema'
 import { useExpenseStore } from '@/stores/expense'
+import router from '@/router'
 
 const expenseStore = useExpenseStore()
 expenseStore.getExpenseSources()
@@ -71,8 +72,9 @@ function onSubmit(values: any) {
       </Field>
       <div class="expense__item__error">{{ errors.sourceId }}</div>
     </div>
-    <div class="expense__item">
+    <div class="expense__item expense__item--flex">
       <button class="expense__item__button" :disabled="isSubmitting">Add</button>
+      <button class="expense__item__button" @click="router.push('/')">Cancel</button>
     </div>
   </Form>
 </template>
