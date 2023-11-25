@@ -128,6 +128,10 @@ function onSubmit(values: any) {
       background-color: $accent-color;
       color: black;
       font-weight: 800;
+
+      &:hover {
+        background-color: $accent-color-hover;
+      }
     }
 
     &__error {

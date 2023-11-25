@@ -115,6 +115,10 @@ expenseStore.getExpenseList()
           outline: none;
           border: none;
           font-weight: 800;
+
+          &:hover {
+            background-color: $accent-color-hover;
+          }
         }
       }
       &__head {
