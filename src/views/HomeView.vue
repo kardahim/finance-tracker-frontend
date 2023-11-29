@@ -3,6 +3,8 @@ import { useIncomeStore } from '@/stores/income'
 import { useExpenseStore } from '@/stores/expense'
 import dayjs from 'dayjs'
 import router from '@/router'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js'
+import { Pie } from 'vue-chartjs'
 
 const incomeStore = useIncomeStore()
 await incomeStore.getIncomeList()
@@ -10,12 +12,65 @@ await incomeStore.getIncomeList()
 const expenseStore = useExpenseStore()
 await expenseStore.getExpenseList()
 
-// TODO add statistics
-// TODO add rwd
+ChartJS.register(ArcElement, Tooltip, Legend, Colors)
+
+const expenseSum = expenseStore.expenses.reduce(
+  (acc: any, entry: any) => {
+    const expenseSourceName = entry.expenseSource.name
+    const totalAmount = acc[expenseSourceName]
+      ? acc[expenseSourceName] + entry.amount
+      : entry.amount
+    acc[expenseSourceName] = totalAmount
+    return acc
+  },
+  {} as { [key: string]: number }
+)
+
+const incomeSum = incomeStore.income.reduce(
+  (acc: any, entry: any) => {
+    const IncomeSourceName = entry.incomeSource.name
+    const totalAmount = acc[IncomeSourceName] ? acc[IncomeSourceName] + entry.amount : entry.amount
+    acc[IncomeSourceName] = totalAmount
+    return acc
+  },
+  {} as { [key: string]: number }
+)
+
+const IncomeData: {
+  labels: string[]
+  datasets: [{ backgroundColor?: string[]; data: number[] }]
+} = {
+  labels: Object.keys(incomeSum),
+  datasets: [
+    {
+      // backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+      data: Object.values(incomeSum)
+    }
+  ]
+}
+
+const ExpenseData: {
+  labels: string[]
+  datasets: [{ backgroundColor?: string[]; data: number[] }]
+} = {
+  labels: Object.keys(expenseSum),
+  datasets: [
+    {
+      // backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+      data: Object.values(expenseSum)
+    }
+  ]
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false
+}
 </script>
 
 <template>
   <main class="home">
+    <!-- income card table -->
     <div class="home__card">
       <h1 class="home__card__title">Income</h1>
       <table class="home__card__table">
@@ -47,6 +102,7 @@ await expenseStore.getExpenseList()
         </tbody>
       </table>
     </div>
+    <!-- expense card table -->
     <div class="home__card">
       <h1 class="home__card__title">Expenses</h1>
       <table class="home__card__table">
@@ -78,6 +134,20 @@ await expenseStore.getExpenseList()
         </tbody>
       </table>
     </div>
+    <!-- income card chart -->
+    <div class="home__card">
+      <h1 class="home__card__title">Income Sources</h1>
+      <div class="home__card__chart">
+        <Pie :data="IncomeData" :options="chartOptions" />
+      </div>
+    </div>
+    <!-- income expense chart -->
+    <div class="home__card">
+      <h1 class="home__card__title">Expense Sources</h1>
+      <div class="home__card__chart">
+        <Pie :data="ExpenseData" :options="chartOptions" />
+      </div>
+    </div>
   </main>
 </template>
 
@@ -90,10 +160,7 @@ await expenseStore.getExpenseList()
   gap: 30px;
 
   @media (min-width: 1700px) {
-    grid-template-columns: repeat(
-      2,
-      auto
-    ); // Dwa elementy obok siebie dla szerokości ekranu 768px i większej
+    grid-template-columns: repeat(2, auto);
   }
 
   &__card {
