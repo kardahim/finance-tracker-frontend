@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import NavigationBar from './components/NavigationBar.vue'
 import FooterBar from './components/FooterBar.vue'
+import { useAuthStore } from './stores/auth'
+
+const authStore = useAuthStore()
+authStore.refresh()
 </script>
 
 <template>

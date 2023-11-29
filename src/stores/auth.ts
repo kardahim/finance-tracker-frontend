@@ -67,5 +67,18 @@ export const useAuthStore = defineStore('auth', () => {
       })
   }
 
-  return { login, logout, register, user }
+  function refresh() {
+    myAxios
+      .post('/auth/refresh', { token: user.value.token })
+      .then((response) => {
+        user.value.token = response.data.token
+        user.value.refreshToken = response.data.refreshToken
+      })
+      .catch((error) => {
+        logout()
+        console.error('Refresh token error:', error.message)
+      })
+  }
+
+  return { login, logout, register, refresh, user }
 })
