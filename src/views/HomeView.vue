@@ -65,7 +65,7 @@ await expenseStore.getExpenseList()
             <td>{{ expense.expenseSource.name }}</td>
             <td>
               <div class="home__card__table__body__btn-action">
-                <button @click="incomeStore.deleteIncome(expense.id!)">Delete</button>
+                <button @click="expenseStore.deleteExpense(expense.id!)">Delete</button>
                 <button @click="router.push(`/expense/edit/${expense.id!}`)">Edit</button>
               </div>
             </td>
