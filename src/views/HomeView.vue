@@ -86,8 +86,15 @@ await expenseStore.getExpenseList()
 
 .home {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
   gap: 30px;
+
+  @media (min-width: 1700px) {
+    grid-template-columns: repeat(
+      2,
+      auto
+    ); // Dwa elementy obok siebie dla szerokości ekranu 768px i większej
+  }
 
   &__card {
     box-shadow: $main-box-shadow;
@@ -102,6 +109,7 @@ await expenseStore.getExpenseList()
     }
 
     &__table {
+      border-collapse: collapse;
       width: 100%;
 
       td {
