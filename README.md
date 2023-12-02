@@ -1,4 +1,4 @@
-# finance-tracker-frontend
+# Finance-tracker frontend app
 
 ![Home View](./docs/home.png)
 
