@@ -8,7 +8,7 @@ A finance-tracker app is a digital tool designed to help users manage and monito
 
 - frontend app (made in Vue)
 - [backend app (made in Spring)](https://github.com/kardahim/finance-tracker-backend)
-- database (mySql)
+- database (MySQL)
 
 ## Technology stack
 
