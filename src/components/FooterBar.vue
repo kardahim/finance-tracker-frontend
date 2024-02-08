@@ -1,5 +1,5 @@
 <template>
-  <footer>Made in 2023 by Paweł Ciszewski</footer>
+  <footer>© 2024 P.Ciszewski & D.Bogusz</footer>
 </template>
 
 <style scoped lang="scss">
