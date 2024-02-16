@@ -73,7 +73,7 @@ function onSubmit(values: any) {
       <div class="income__item__error">{{ errors.date }}</div>
     </div>
     <div class="income__item">
-      <label for="date" class="income__item__label">Income source</label>
+      <label for="sourceId" class="income__item__label">Income source</label>
       <Field
         as="select"
         id="sourceId"

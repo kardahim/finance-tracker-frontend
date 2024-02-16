@@ -47,7 +47,6 @@ function onSubmit(values: any) {
       <label for="date" class="income__item__label">Date</label>
       <Field
         id="date"
-        min="1"
         name="date"
         type="date"
         :value="new Date().toISOString().substr(0, 10)"
@@ -57,7 +56,7 @@ function onSubmit(values: any) {
       <div class="income__item__error">{{ errors.date }}</div>
     </div>
     <div class="income__item">
-      <label for="date" class="income__item__label">Income source</label>
+      <label for="sourceId" class="income__item__label">Income source</label>
       <Field
         as="select"
         id="sourceId"
@@ -65,8 +64,7 @@ function onSubmit(values: any) {
         class="income__item__input"
         :class="{ 'is-invalid': errors.sourceId }"
       >
-        <!-- should be selected... -->
-        <!-- but :selected=soemthing not work -->
+        <!-- FIXME: first source should be selected -->
         <option v-for="source in incomeStore.incomeSources" :key="source.id!" :value="source.id">
           {{ source.name }}
         </option>
