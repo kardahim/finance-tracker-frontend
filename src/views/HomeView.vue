@@ -75,11 +75,13 @@ const chartOptions = {
       <h1 class="home__card__title">Income</h1>
       <table class="home__card__table">
         <thead class="home__card__table__head">
-          <td>Name</td>
-          <td>Amount</td>
-          <td>Date</td>
-          <td>Income source</td>
-          <td>Action</td>
+          <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Income source</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody class="home__card__table__body">
           <tr v-for="income in incomeStore.income" :key="income.id!">
@@ -107,11 +109,13 @@ const chartOptions = {
       <h1 class="home__card__title">Expenses</h1>
       <table class="home__card__table">
         <thead class="home__card__table__head">
-          <td>Name</td>
-          <td>Amount</td>
-          <td>Date</td>
-          <td>Expense source</td>
-          <td>Action</td>
+          <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Expense source</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody class="home__card__table__body">
           <tr v-for="expense in expenseStore.expenses" :key="expense.id!">
@@ -179,7 +183,8 @@ const chartOptions = {
       border-collapse: collapse;
       width: 100%;
 
-      td {
+      td,
+      th {
         border: 1px solid $sub-text-color;
         padding: 20px;
 
@@ -201,7 +206,7 @@ const chartOptions = {
         font-weight: 800;
         text-transform: uppercase;
         text-align: center;
-        td {
+        th {
           padding: 10px 20px;
         }
       }
