@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Field } from 'vee-validate'
+import { Form, Field, ErrorMessage } from 'vee-validate'
 import { registerValidationSchema } from '../assets/validation/registerValidationSchema'
 import { useAuthStore } from '@/stores/auth'
 
@@ -26,7 +26,7 @@ function onSubmit(values: any) {
         class="register__item__input"
         :class="{ 'is-invalid': errors.firstName }"
       />
-      <div class="register__item__error">{{ errors.firstName }}</div>
+      <ErrorMessage name="firstName" class="register__item__error" as="div" />
     </div>
     <div class="register__item">
       <label for="lastName" class="register__item__label">Lastname</label>
@@ -37,7 +37,7 @@ function onSubmit(values: any) {
         class="register__item__input"
         :class="{ 'is-invalid': errors.lastName }"
       />
-      <div class="register__item__error">{{ errors.lastName }}</div>
+      <ErrorMessage name="lastName" class="register__item__error" as="div" />
     </div>
     <div class="register__item">
       <label for="email" class="register__item__label">Email</label>
@@ -48,7 +48,7 @@ function onSubmit(values: any) {
         class="register__item__input"
         :class="{ 'is-invalid': errors.email }"
       />
-      <div class="register__item__error">{{ errors.email }}</div>
+      <ErrorMessage name="email" class="register__item__error" as="div" />
     </div>
     <div class="register__item">
       <label for="password" class="register__item__label">Password</label>
@@ -59,7 +59,7 @@ function onSubmit(values: any) {
         class="register__item__input"
         :class="{ 'is-invalid': errors.email }"
       />
-      <div class="register__item__error">{{ errors.password }}</div>
+      <ErrorMessage name="password" class="register__item__error" as="div" />
     </div>
     <div class="register__item register__item--flex">
       <button class="register__item__button" :disabled="isSubmitting">Register</button>

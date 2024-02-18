@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Field } from 'vee-validate'
+import { Form, Field, ErrorMessage } from 'vee-validate'
 import { loginValidationSchema } from '../assets/validation/loginValidationSchema'
 import { useAuthStore } from '@/stores/auth'
 
@@ -26,7 +26,7 @@ function onSubmit(values: any) {
         class="login__item__input"
         :class="{ 'is-invalid': errors.email }"
       />
-      <div class="login__item__error">{{ errors.email }}</div>
+      <ErrorMessage name="email" class="login__item__error" as="div" />
     </div>
     <div class="login__item">
       <label for="password" class="login__item__label">Password</label>
@@ -37,7 +37,7 @@ function onSubmit(values: any) {
         class="login__item__input"
         :class="{ 'is-invalid': errors.email }"
       />
-      <div class="login__item__error">{{ errors.password }}</div>
+      <ErrorMessage name="password" class="login__item__error" as="div" />
     </div>
     <div class="login__item login__item--flex">
       <button class="login__item__button" :disabled="isSubmitting">Log in</button>

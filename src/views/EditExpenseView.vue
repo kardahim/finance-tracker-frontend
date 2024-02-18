@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import router from '@/router'
-import { Form, Field } from 'vee-validate'
+import { Form, Field, ErrorMessage } from 'vee-validate'
 import { incomeExpenseValidationSchema } from '../assets/validation/incomeExpenseValidationSchema'
 import { useAuthStore } from '@/stores/auth'
 import { useExpenseStore } from '@/stores/expense'
@@ -44,7 +44,7 @@ function onSubmit(values: any) {
         :value="expenseStore.singleExpense.name"
         :class="{ 'is-invalid': errors.name }"
       />
-      <div class="expense__item__error">{{ errors.name }}</div>
+      <ErrorMessage name="name" class="expense__item__error" as="div" />
     </div>
     <div class="expense__item">
       <label for="amount" class="expense__item__label">Amount</label>
@@ -57,7 +57,7 @@ function onSubmit(values: any) {
         :value="expenseStore.singleExpense.amount"
         :class="{ 'is-invalid': errors.amount }"
       />
-      <div class="expense__item__error">{{ errors.amount }}</div>
+      <ErrorMessage name="amount" class="expense__item__error" as="div" />
     </div>
     <div class="expense__item">
       <label for="date" class="expense__item__label">Date</label>
@@ -70,7 +70,7 @@ function onSubmit(values: any) {
         class="expense__item__input"
         :class="{ 'is-invalid': errors.date }"
       />
-      <div class="expense__item__error">{{ errors.date }}</div>
+      <ErrorMessage name="date" class="expense__item__error" as="div" />
     </div>
     <div class="expense__item">
       <label for="date" class="expense__item__label">Expense source</label>
@@ -82,12 +82,11 @@ function onSubmit(values: any) {
         :value="expenseStore.singleExpense.expenseSource.id"
         :class="{ 'is-invalid': errors.sourceId }"
       >
-        <!-- should be selected... -->
         <option v-for="source in expenseStore.expenseSources" :key="source.id!" :value="source.id">
           {{ source.name }}
         </option>
       </Field>
-      <div class="expense__item__error">{{ errors.sourceId }}</div>
+      <ErrorMessage name="sourceId" class="expense__item__error" as="div" />
     </div>
     <div class="expense__item expense__item--flex">
       <button class="expense__item__button" :disabled="isSubmitting">Edit</button>
