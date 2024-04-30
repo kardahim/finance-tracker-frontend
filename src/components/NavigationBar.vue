@@ -1,9 +1,15 @@
 <!-- Original style by G. Rohit -->
 <!-- https://codepen.io/grohit/pen/jObGzdG -->
 <script setup lang="ts">
+import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
+
+const handleLogin = () => {
+  authStore.logout()
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -18,7 +24,7 @@ const authStore = useAuthStore()
       </li>
 
       <li v-if="authStore.user.isLogged">
-        <span data-item="Logout" @click="authStore.logout"> Logout </span>
+        <span data-item="Logout" @click="handleLogin"> Logout </span>
       </li>
     </ul>
   </nav>

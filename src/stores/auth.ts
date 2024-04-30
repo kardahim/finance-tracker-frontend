@@ -52,8 +52,6 @@ export const useAuthStore = defineStore('auth', () => {
     user.value.refreshToken = null
     user.value.role = null
     user.value.isLogged = false
-
-    router.push('/login')
   }
 
   function register(data: Register) {
